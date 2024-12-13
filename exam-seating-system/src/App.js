@@ -1,55 +1,26 @@
-const generateMockSeating = ({ rows, columns, threeSeater, fiveSeater }) => {
-  // Mock student data
-  const students = [
-    { usn: "S101", subjectCode: "MATH" },
-    { usn: "S102", subjectCode: "PHYS" },
-    { usn: "S103", subjectCode: "CHEM" },
-    { usn: "S104", subjectCode: "BIO" },
-    { usn: "S105", subjectCode: "MATH" },
-    { usn: "S106", subjectCode: "PHYS" },
-    { usn: "S107", subjectCode: "CHEM" },
-    { usn: "S108", subjectCode: "BIO" },
-  ];
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+//import LogoHeader from './components/LogoHeader';
+import AuthPage from './components/AuthPage';
+import HomePage from './components/HomePage';
+import SeatSelector from './components/SeatSelector';
+import DetailsForm from './components/DetailsForm';
+import SeatingTable from './components/SeatingTable';
 
-  const arrangement = [];
-  let studentIndex = 0;
+function App() {
+  return (
+    <Router>
+      
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/select-seats" element={<SeatSelector />} />
+        <Route path="/enter-details" element={<DetailsForm />} />
+        <Route path="/seating-table" element={<SeatingTable />} />
+      </Routes>
+    </Router>
+  );
+}
 
-  for (let i = 0; i < rows; i++) {
-    const row = [];
-    for (let j = 0; j < columns; j++) {
-      if (threeSeater > 0) {
-        // 3-seater logic: 2 students with different subject codes
-        const student1 = students[studentIndex++];
-        const student2 = students.find(
-          (s) => s.subjectCode !== student1.subjectCode
-        );
-        row.push([
-          student1 ? `${student1.usn} (${student1.subjectCode})` : "Empty",
-          student2 ? `${student2.usn} (${student2.subjectCode})` : "Empty",
-        ]);
-        threeSeater--;
-        studentIndex++; // Move index for second student
-      } else if (fiveSeater > 0) {
-        // 5-seater logic: 2 students with the same subject code
-        const student1 = students[studentIndex++];
-        const student2 = students.find(
-          (s) => s.subjectCode === student1.subjectCode
-        );
-        row.push([
-          student1 ? `${student1.usn} (${student1.subjectCode})` : "Empty",
-          student2 ? `${student2.usn} (${student2.subjectCode})` : "Empty",
-        ]);
-        fiveSeater--;
-        studentIndex++; // Move index for second student
-      } else {
-        row.push(["Empty", "Empty"]);
-      }
-    }
-    arrangement.push(row);
-  }
-
-  return arrangement;
-};
-
-
+export default App;
 
