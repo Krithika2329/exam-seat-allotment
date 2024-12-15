@@ -22,3 +22,16 @@ const SeatingTable = ({ seatingData }) => (
 );
 
 export default SeatingTable;
+const renderSeatingData = () => {
+  return seatingData.map((row, index) => (
+    <tr key={index}>
+      <td>{row.examDate}</td>
+      <td>{row.classroomNumber}</td>
+      <td>{row.examTime}</td>
+      <td>{row.examBlock}</td>
+      <td>{row.seatingAllotment}</td>
+    </tr>
+  ));
+};
+
+export default SeatingTable;
